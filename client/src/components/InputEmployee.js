@@ -3,7 +3,7 @@ import React from "react";
 
 const InputEmployee = () => {
     return (
-        <h1>Input Employee</h1>
+        <h1> Input Employeev</h1>
     )
 }
 
