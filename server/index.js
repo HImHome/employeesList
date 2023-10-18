@@ -38,12 +38,13 @@ app.get("/employees/:id", async(req, res) => {
 
 //Create employee instance
 app.post("/employees", async (req,res) => {
+    console.log("Received data:", req.body);
     try {
         const { first_name, last_name, vacation_days } = req.body;
         
-        const newEmployee = await pool.query("INSERT INTO employees (first_name, last_name, vacation_days) VALUES ($1, $2, $3)", [first_name, last_name, vacation_days]);
+        const newEmployee = await pool.query("INSERT INTO employees (first_name, last_name, vacation_days) VALUES ($1, $2, $3) RETURNING *", [first_name, last_name, vacation_days]);
         
-        res.json(req.body);
+        res.json(newEmployee.rows[0]);
     } catch (error) {
         console.error(error.message);
     }

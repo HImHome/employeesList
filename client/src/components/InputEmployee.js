@@ -5,17 +5,36 @@ const InputEmployee = () => {
     
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [employeeID, setEmployeeID] = useState("");
+    const [vacationDays, setVacationDays] = useState("");
+    
+    const onSubmitForm = async e =>{
+        e.preventDefault();
+        try {
+            const body = {firstName, lastName, vacationDays};
+            
+            const response = await fetch("http://localhost:5000/employees",{
+                method: "POST",
+                headers:{"Content-type": "application/json"},
+                body: JSON.stringify(body)
+            });
+
+            console.log(response);
+        
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
     
     return (
         <Fragment>
             <h1 className="text-center my-5"> Input Employee</h1>
-            <form>
+            <form onSubmit={onSubmitForm}>
                 <input 
                     type="text" 
                     placeholder="First name" 
                     className="form-control" 
                     value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
                 />
                 
                 <input 
@@ -23,13 +42,15 @@ const InputEmployee = () => {
                     placeholder="Last name" 
                     className="form-control" 
                     value={lastName}
+                    onChange={e => setLastName(e.target.value)}
                 />
                 
                 <input 
                     type="text" 
-                    placeholder="Employee ID" 
+                    placeholder="Vacation Days" 
                     className="form-control" 
-                    value={employeeID} 
+                    value={vacationDays} 
+                    onChange={e => setVacationDays(e.target.value)}
                 />
                 
                 <button className="btn btn-success">Submit</button>

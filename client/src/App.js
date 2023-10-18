@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import './App.css';
-import InputEmployee from './components/InputEmployee';
+import InputEmployee from './components/inputEmployee';
 
 
 function App() {
