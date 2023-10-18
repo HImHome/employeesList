@@ -9,8 +9,19 @@ const InputEmployee = () => {
     
     const onSubmitForm = async e =>{
         e.preventDefault();
+        
+        //ceate an object to map the state variables to database columns
+        
+        
+        
+        // send data to the server
         try {
-            const body = {firstName, lastName, vacationDays};
+             //ceate an object to map the state variables to database columns
+            const body = {
+                first_name: firstName,
+                last_name: lastName,
+                vacation_days: vacationDays,
+            };
             
             const response = await fetch("http://localhost:5000/employees",{
                 method: "POST",
