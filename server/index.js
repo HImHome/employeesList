@@ -38,7 +38,6 @@ app.get("/employees/:id", async(req, res) => {
 
 //Create employee instance
 app.post("/employees", async (req,res) => {
-    console.log("Received data:", req.body);
     try {
         const { first_name, last_name, vacation_days } = req.body;
         

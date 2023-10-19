@@ -10,7 +10,6 @@ const InputEmployee = () => {
     const onSubmitForm = async e =>{
         e.preventDefault();
         
-        //ceate an object to map the state variables to database columns
         
         
         
