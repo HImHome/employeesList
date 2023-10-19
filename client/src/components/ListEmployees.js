@@ -29,20 +29,30 @@ const ListEmployees = () =>{
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Vacation Days</th>
-                    <th scope="col">Delete</th>
 
                 </tr>
             </thead>
             <tbody>
-                
-                    {employees.map((employee) => (
-                        <tr key={employee.id}>
-                          <td>{employee.firstName}</td>
-                          <td>{employee.lastName}</td>
-                          <td>{employee.vacationDays}</td>
-                          <td className="btn btn-danger">Delete</td>
+                {
+                    employees.map((employee) => (
+
+                        <tr>
+                            <th>{ employee.employee_id }</th>
+                            <td>{ employee.first_name}</td>
+                            <td>{ employee.last_name }</td>
+                            <td>{ employee.vacation_days }</td>
+                            <td>
+                                <button className="btn btn-warning">Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button className="btn btn-danger">Delete
+                                </button>
+                            </td>
                         </tr>
-                      ))}
+                        
+                    ))
+                }
             </tbody>
         </table>
     </Fragment>
