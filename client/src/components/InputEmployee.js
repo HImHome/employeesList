@@ -1,72 +1,97 @@
 import React, {Fragment, useState} from "react";
-
+import {Button, Dialog, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 
 const InputEmployee = () => {
-    
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [vacationDays, setVacationDays] = useState("");
-    
-    const onSubmitForm = async e =>{
+
+    const [newEmployee, setNewEmployee] = useState({
+        firstName: null,
+        lastName: null,
+        vacationDays: null
+    });
+
+
+    const onSubmitForm = async e => {
         e.preventDefault();
-        
-        
-        
-        
+
         // send data to the server
         try {
-             //ceate an object to map the state variables to database columns
-            const body = {
-                first_name: firstName,
-                last_name: lastName,
-                vacation_days: vacationDays,
-            };
-            
-            const response = await fetch("http://localhost:5000/employees",{
+            const response = await fetch("http://localhost:5000/employees", {
                 method: "POST",
-                headers:{"Content-type": "application/json"},
-                body: JSON.stringify(body)
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify(newEmployee)
             });
 
             console.log(response);
-        
+
         } catch (err) {
             console.error(err.message);
         }
     }
-    
+
     return (
         <Fragment>
-            <h1 className="text-center my-5"> Input Employee</h1>
-            <form onSubmit={onSubmitForm}>
-                <input 
-                    type="text" 
-                    placeholder="First name" 
-                    className="form-control" 
-                    value={firstName}
-                    onChange={e => setFirstName(e.target.value)}
-                />
-                
-                <input 
-                    type="text" 
-                    placeholder="Last name" 
-                    className="form-control" 
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
-                />
-                
-                <input 
-                    type="text" 
-                    placeholder="Vacation Days" 
-                    className="form-control" 
-                    value={vacationDays} 
-                    onChange={e => setVacationDays(e.target.value)}
-                />
-                
-                <button className="btn btn-success">Submit</button>
-            </form>
+            <Dialog open={true}>
+                <DialogTitle>ΕΓΓΡΑΦΗ ΥΠΑΛΛΗΛΟΥ</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Εισάγετε τα στοιχεία του υπαλλήλου :
+                    </DialogContentText>
+                    <form onSubmit={onSubmitForm}>
+                        <TextField
+                            type="text"
+                            margin="dense"
+                            label="Όνομα"
+                            variant="standard"
+                            placeholder="Όνομα"
+                            className="form-control"
+                            value={newEmployee.firstName}
+                            onChange={e =>
+                                setNewEmployee({
+                                    ...newEmployee,
+                                    firstName: e.target.value,
+                                })
+                            }
+                        />
+
+                        <TextField
+                            type="text"
+                            margin="dense"
+                            label="Επώνυμο"
+                            variant="standard"
+                            placeholder="Επώνυμο"
+                            className="form-control"
+                            value={newEmployee.lastName}
+                            onChange={e => setNewEmployee({
+                                ...newEmployee,
+                                lastName: e.target.value,
+                            })
+                            }
+                        />
+
+                        <TextField
+                            type="text"
+                            margin="dense"
+                            label="Ημέρες Άδειας"
+                            variant="standard"
+                            placeholder="Ημέρες Άδειας"
+                            className="form-control"
+                            value={newEmployee.vacationDays}
+                            onChange={e => setNewEmployee({
+                                ...newEmployee,
+                                vacationDays: e.target.value,
+                            })
+                            }
+                        />
+
+                        <Button
+                            variant="contained" color="success" onClick={onSubmitForm}>
+                            Submit
+                        </Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </Fragment>
     )
 }
 
-export default  InputEmployee;
+export default InputEmployee;
